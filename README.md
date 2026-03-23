@@ -1,38 +1,42 @@
 # Intel Image Classification using CNN
 
-A Deep Learning project to classify natural scenes (Buildings, Forest, Glacier, Mountain, Sea, Street) using TensorFlow and Keras.
+A Deep Learning project to classify natural scenes into six categories: Buildings, Forest, Glacier, Mountain, Sea, and Street. This project demonstrates the full machine learning pipeline, from Exploratory Data Analysis (EDA) to model evaluation on an unseen test set.
+
+## 🚀 Performance Overview
+- **Final Test Accuracy:** ~82%
+- **Highest Performing Class:** Forest (F1-score: 0.94)
+- **Frameworks:** TensorFlow, Keras, Scikit-Learn
+
+## 🛠️ Technical Implementation
+
+### 1. Data Exploration & Preprocessing
+- **EDA:** Analyzed raw images to understand class distribution and image resolutions.
+- **Normalization:** Pixel values rescaled to `[0, 1]` for stable training.
+- **Data Augmentation:** Used `RandomFlip`, `RandomRotation`, and `RandomZoom` to increase model robustness and prevent overfitting.
+
+### 2. CNN Architecture
+The model consists of three convolutional blocks designed to capture hierarchical features:
+- **Layer 1:** 32 filters (3x3) + Max Pooling.
+- **Layer 2:** 64 filters (3x3) + Max Pooling.
+- **Layer 3:** 128 filters (3x3) + Max Pooling.
+- **Dense Head:** 128-neuron fully connected layer with **Dropout (0.5)** for regularization.
+- **Output:** Softmax layer for 6-class probability distribution.
+
+### 3. Evaluation Metrics
+The model was evaluated on a dedicated **test set** (unseen data) with the following outputs:
+- **Classification Report:** Detailed Precision, Recall, and F1-score per class.
+- **Confusion Matrix:** Analysis of class confusion (specifically between Mountains and Glaciers).
+- **Visualization:** Predicted vs. Actual labels for random samples.
+
+## 📊 Results Visualization
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sayoojkrajesh3070/Intel-Image-Classification-using-CNN/blob/main/CNN_Model.ipynb)
+The training curves indicate a healthy convergence with minimal gap between training and validation metrics, proving that the regularization techniques were effective.
 
-## 🚀 Performance
-- **Test Accuracy:** ~82%
-- **Model:** CNN with 3 Convolutional Layers + Dropout
+## 📋 How to Run
+1. Open the `CNN_Model.ipynb` in [Google Colab](https://colab.research.google.com/).
+2. Run the cells sequentially to download the dataset via `kagglehub` and train the model.
+3. View the final evaluation metrics at the bottom of the notebook.
 
-## 🛠️ Built With
-- Python
-- TensorFlow / Keras
-- Matplotlib (Visualization)
-- Scikit-Learn (Metrics)
-
-## 🧠 Technical Implementation
-
-### Data Preprocessing & Augmentation
-To ensure the model generalizes well to new images, the following techniques were used:
-- **Rescaling:** Pixel values were normalized to the [0, 1] range to ensure stable gradient updates.
-- **Augmentation:** Applied `RandomFlip`, `RandomRotation(0.1)`, and `RandomZoom(0.1)` layers. This prevents the model from overfitting on the specific orientation of the training images.
-
-### CNN Architecture
-The model follows a hierarchical feature extraction pattern:
-1. **Convolutional Layers (3):** Used 32, 64, and 128 filters respectively. Earlier layers capture simple edges/textures, while deeper layers capture complex shapes like mountain peaks or building windows.
-2. **Activation:** `ReLU` was used across all hidden layers to introduce non-linearity and avoid vanishing gradients.
-3. **Regularization:** A `Dropout(0.5)` layer was added before the final output to reduce reliance on specific neurons, forcing the model to learn robust features.
-4. **Output:** A `Softmax` dense layer with 6 units, providing a probability distribution across the classes.
-
-### Training Strategy
-- **Optimizer:** Adam (Adaptive Moment Estimation) for efficient learning rate management.
-- **Early Stopping:** Monitored `val_loss` with a patience of 3. This ensures training stops exactly when the model begins to overfit, preserving the best possible weights.
-
-## 📊 Results
-The model successfully classifies most scenes, with high precision in identifying Forest and Buildings. The most common confusion occurs between Mountains and Glaciers due to similar visual features.
-
+## 📜 License
+This project is open-source and available under the MIT License.
